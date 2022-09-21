@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+
+    <card>
+        <title>Currency</title>
+        <component name="sw-entity-single-select">
+            <name>defaultCurrencyId</name>
+            <entity>currency</entity>
+            <label>Default currency</label>
+            <placeholder>Select the default currency of your shop...</placeholder>
+        </component>
+
+        <component name="sw-entity-multi-id-select">
+            <name>currencyFactorNeeded</name>
+            <entity>currency</entity>
+            <label>Currencies where the factor needs to be updated automatically</label>
+            <placeholder>Choose currencies..</placeholder>
+        </component>
+    </card>
+
+    <card>
+        <title>API</title>
+        <input-field type="password">
+            <name>apiKey</name>
+            <label>API key</label>
+            <helpText>A free API key from https://apilayer.com/marketplace/exchangerates_data-api is needed</helpText>
+        </input-field>
+    </card>
+</config>

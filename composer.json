@@ -1,0 +1,28 @@
+{
+    "name": "melvinachterhuis/auto-exchange-rates-shopware6-plugin",
+    "description": "Fetches automatically the exchange rates",
+    "version": "1.0.0",
+    "type": "shopware-platform-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Melvin Achterhuis"
+        }
+    ],
+    "require": {
+        "shopware/core": "6.4.*",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Melv\\AutoExchangeRates\\": "src/"
+        }
+    },
+    "extra": {
+        "shopware-plugin-class": "Melv\\AutoExchangeRates\\MelvAutoExchangeRates",
+        "label": {
+            "de-DE": "Auto Exchange Rates",
+            "en-GB": "Auto Exchange Rates"
+        }
+    }
+}
