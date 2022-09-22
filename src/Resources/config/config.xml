@@ -17,6 +17,12 @@
             <label>Currencies where the factor needs to be updated automatically</label>
             <placeholder>Choose currencies..</placeholder>
         </component>
+
+        <input-field type="int">
+            <name>floatRounding</name>
+            <label>Round after how many decimals?</label>
+            <defaultValue>5</defaultValue>
+        </input-field>
     </card>
 
     <card>

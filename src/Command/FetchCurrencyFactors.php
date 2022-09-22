@@ -102,11 +102,25 @@ class FetchCurrencyFactors extends Command
         $ratesArray = json_decode($response, true);
         $factors = $ratesArray['rates'];
         $context = new Context(new SystemSource());
+        $floatRounding = $this->systemConfigService->get('MelvAutoExchangeRates.config.floatRounding');
 
         foreach ($factors as $key => $value) {
             $criteria = new Criteria();
             $criteria->addFilter(new EqualsFilter('isoCode', $key));
             $currency = $this->currencyRepository->search($criteria, $context)->first();
+
+            if(isset($currency->getCustomFields()['melv_currency_safety_margin'])) {
+                $output->writeln("<info>{$key}:</info> Original factor {$value}");
+                $safetyMargin = $currency->getCustomFields()['melv_currency_safety_margin'];
+                $output->writeln("<info>{$key}:</info> Adjusting factor with {$safetyMargin}%");
+                $value /= (1 + $safetyMargin / 100);
+                $output->writeln("<info>{$key}:</info> New calculated factor {$value}");
+            }
+
+            if(isset($floatRounding)) {
+                $value = round($value, $floatRounding);
+                $output->writeln("<info>{$key}:</info> Adjusted to {$value} with {$floatRounding} decimals");
+            }
 
             if($currency) {
                 $this->currencyRepository->update([
@@ -115,7 +129,7 @@ class FetchCurrencyFactors extends Command
                         'factor' => $value
                     ]
                 ], $context);
-                $output->writeln("Updated {$key} with factor {$value}");
+                $output->writeln("<info>{$key}:</info> Updated with factor {$value}");
             }
         }
     }
