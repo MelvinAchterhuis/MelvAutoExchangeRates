@@ -113,7 +113,7 @@ class FetchCurrencyFactors extends Command
                 $output->writeln("<info>{$key}:</info> Original factor {$value}");
                 $safetyMargin = $currency->getCustomFields()['melv_currency_safety_margin'];
                 $output->writeln("<info>{$key}:</info> Adjusting factor with {$safetyMargin}%");
-                $value /= (1 + $safetyMargin / 100);
+                $value *= (1 - $safetyMargin / 100);
                 $output->writeln("<info>{$key}:</info> New calculated factor {$value}");
             }
 
